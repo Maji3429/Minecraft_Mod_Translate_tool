@@ -2,7 +2,7 @@
 # NOTE: このプログラムは、en_us.jsonファイルを探し、そのパスを返す
 
 import glob
-import logging.handlers, os
+import os
 logger = logging.getLogger(__name__)
 
 

@@ -4,7 +4,6 @@
 # NOTE: すべてのプログラムを実行する前に、環境を整える。
 
 import shutil, os, logging, zipfile
-import logging.handlers
 import gui_module
 
 logger = logging.getLogger(__name__)
@@ -153,8 +152,6 @@ from pathlib import Path
 
 import os
 import shutil
-from pathlib import Path
-import time
 
 def copy_assets_folders(root_dir, json_file_paths):
     """
