@@ -52,10 +52,9 @@ def gen_pack_dir(pack_format, page, json_files):
                 # assetsフォルダを生成
                 os.makedirs(os.path.join("translate_rp", "assets"))
                 return 0
-            else:
-                gui_module.err_dlg(page, "エラー","バージョンを選択してください。")
-                logger.error("ERROR: バージョンが指定されていません。")
-                return 1
+            gui_module.err_dlg(page, "エラー","バージョンを選択してください。")
+            logger.error("ERROR: バージョンが指定されていません。")
+            return 1
 
 def lang_remove_other_files(path):
     """

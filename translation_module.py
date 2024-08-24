@@ -127,14 +127,12 @@ def translate_in_thread(lang_file_paths, page):
         logger.error("ERROR: langフォルダが見つからなかったので、翻訳をスキップします。")
         gui_module.err_dlg(page, "エラー","langフォルダが見つからなかったので、翻訳をスキップします。")
         return
-    elif lang_file_paths == "exist ja_jp.json":
+    if lang_file_paths == "exist ja_jp.json":
         logger.info("LOG: ja_jp.jsonが見つかったので、翻訳をスキップします。")
         gui_module.err_dlg(page, "エラー","ja_jp.jsonが見つかったので、翻訳をスキップします。")
         return
-    else:
-        logger.info("LOG: en_us.jsonが見つかり、ja_jp.jsonがないため翻訳を開始します。")
-        print(f"成功!{lang_file_paths}")
-        
+    logger.info("LOG: en_us.jsonが見つかり、ja_jp.jsonがないため翻訳を開始します。")
+    print(f"成功!{lang_file_paths}")
     with ThreadPoolExecutor() as executor:
         # 引数として、translate_json関数に渡すjsonファイルのパスと、pageを渡す
         results = executor.map(translate_json, lang_file_paths, [page]*len(lang_file_paths))
