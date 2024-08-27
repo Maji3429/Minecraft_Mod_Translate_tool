@@ -14,7 +14,7 @@ def init_dir(path):
     """
     if os.path.exists(path):
         shutil.rmtree(path)
-    
+
     try:
         os.makedirs(path)
     except:
@@ -28,12 +28,12 @@ def gen_pack_dir(pack_format, page, json_files):
     pack_format: リソースパックのバージョン番号を指定
     json_files: 翻訳対象のen_us.jsonファイルのパスのリスト
     """
-    
+
     # json_files に格納された各ファイルの2つ上の階層のフォルダの名前を取得
     asset_folders = [os.path.basename(os.path.dirname(os.path.dirname(json_file))) for json_file in json_files]
     # asset_foldersの各要素をカンマ区切りで結合して文字列にする(str)
     asset_folders = str("、".join(asset_folders))
-    
+
     # pack.mcmetaを生成
     if not os.path.exists(os.path.join("translate_rp", "pack.mcmeta")): # pack.mcmetaが存在しない場合
         with open(os.path.join("translate_rp", "pack.mcmeta"), "w+", encoding="utf-8") as f: # pack.mcmetaを作成
@@ -45,7 +45,7 @@ def gen_pack_dir(pack_format, page, json_files):
     }}
 }}'''.format(pack_format=pack_format, asset_folders=asset_folders))
                 logger.info("LOG: translate_rp\\pack.mcmetaを生成しました。")
-                
+
                 # assetsフォルダを生成
                 os.makedirs(os.path.join("translate_rp", "assets"))
                 return 0
@@ -100,7 +100,7 @@ def unzip_jar(path: str):
     except:
         logger.error(f"ERROR: {jar_folder}の作成に失敗しました。")
         return
-    
+
     # jarファイルをzipに変えてコピー
     zip_path = os.path.join(jar_folder, os.path.basename(path) + ".zip")
     shutil.copy(path, zip_path)

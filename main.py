@@ -48,7 +48,7 @@ def process_app(file_paths, file_names, page):
     # 解凍したファイルのMETA-INFの中を探索し、その中のjarファイルを解凍する。
     # 解凍したファイルのMETA-INFの中にjarファイルが無くなるまで繰り返す。
     # ということがしたかったのだが、うまくいかなかったので、一旦保留。一回だけ解凍することにする。
-    
+
     # tempフォルダの中からlangファイルを探し、そのlangファイルのパス上にあるフォルダ以外のフォルダとファイルをtempから削除する
     json_files = glob.glob(os.path.join("temp", '**', 'en_us.json'), recursive=True)
     # en_us.jsonファイルのパス上にあるフォルダ以外を削除
@@ -62,7 +62,7 @@ def process_app(file_paths, file_names, page):
         sys.exit(1)
     # assets以下をtranslate_rpにコピー
     file_utils.copy_assets_folders("temp", json_files)
-    
+
     # en_us.jsonファイルのパスを取得
     lang_file_paths = search_files.search_lang_file()
 
@@ -94,7 +94,7 @@ def main():
     file_utils.init_dir("temp")
     file_utils.init_dir("translate_rp")
     ft.app(target=gui_module.start_gui, assets_dir="assets")
-    
+
 
 
 if __name__ == "__main__":
