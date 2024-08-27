@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 def search_lang_file():
     """
     translate_rpにあり、同階層にja_jp.jsonが存在しないen_us.jsonファイルのパスを返します。
-    
+
     Returns:
         list: 翻訳対象のen_us.jsonファイルのパス。
     """
