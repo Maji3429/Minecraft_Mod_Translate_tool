@@ -16,19 +16,19 @@ def translate_json(lang_file_path, page):
     Args:
         lang_file_path (str): 翻訳するjsonファイルのパス
     """
-    
-    
-    
+
+
+
 
     # 翻訳開始時刻を記録
     start_time = time.time()
     try:
         translator = Translator()
-        
+
         logger.info("="*20)
         logger.info("INFO: %s の翻訳を開始します。", lang_file_path)
         logger.info("="*20)
-        
+
         # ファイルパスを正規化 ※正規化
         try:
             lang_file_path = os.path.normpath(lang_file_path)
@@ -39,7 +39,7 @@ def translate_json(lang_file_path, page):
             print(f"ERROR: {e}")
             gui_module.err_dlg(page, "エラー",f"{lang_file_path}の正規化に失敗しました。")
             return 1
-        
+
         with open(lang_file_path, "r+", encoding="utf-8") as f:  # それぞれの引数には、①ファイルのパス、②読み込みモード、③文字コードを指定
             def find_strings(json_data):
                 """
@@ -83,7 +83,7 @@ def translate_json(lang_file_path, page):
                         translated_strings += 1
                         # ProgressBarをインクリメント
                         gui_module.progress_bar_update(progressbar, translated_strings, total_strings, info_msg, page, start_time)
-                        
+
                         pbar.update(1)
 
                         # 残り時間を計算して表示
@@ -117,12 +117,12 @@ def translate_json(lang_file_path, page):
             # ja_jp.jsonを保存する(file_pathのディレクトリにja_jp.jsonとして保存)
             with open(lang_file_path.replace("en_us.json", "ja_jp.json"), "w", encoding="utf-8") as f:
                 json.dump(ja_json, f, indent=4, ensure_ascii=False)
-            
+
             logger.info("INFO: %s の翻訳が完了しました。", lang_file_path)
             logger.info("="*20)  # 終了を示すために区切り線を表示
             info_msg.value = f"翻訳が完了しました。"
-            
-            
+
+
             return 0
     except Exception as e:
         logger.error("ERROR: %s の翻訳に失敗しました。", lang_file_path)
@@ -145,7 +145,7 @@ def translate_in_thread(lang_file_paths, page):
         return
     logger.info("INFO: en_us.jsonが見つかり、ja_jp.jsonがないため翻訳を開始します。")
     logger.info("INFO: %s ", lang_file_paths)
-    
+
     with ThreadPoolExecutor() as executor:
         # 引数として、translate_json関数に渡すjsonファイルのパスと、pageを渡す
         results = executor.map(translate_json, lang_file_paths, [page]*len(lang_file_paths))
@@ -158,10 +158,10 @@ def translate_in_thread(lang_file_paths, page):
                 return
     # 全ての翻訳が終わったことを表示
     logger.info("INFO: 全ての翻訳処理が完了しました。")
-    
+
     # 翻訳が完了したことを示すメッセージを表示
     gui_module.err_dlg(page, "完了","全ての翻訳が完了しました。")
-    
+
     # メインスレッド以外を終了
     ThreadPoolExecutor().shutdown(wait=True)
     return 0

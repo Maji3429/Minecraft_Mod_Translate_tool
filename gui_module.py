@@ -18,12 +18,12 @@ def err_dlg(page: ft.Page, err_title: str, err_msg: str):
     def close_dlg(e):  # eは使用しないが、仮の引数が必要
         err_dlg.open = False
         page.update()
-    
+
     def dlg_open():
         page.dialog = err_dlg
         err_dlg.open = True
         page.update()
-    
+
     err_dlg = ft.AlertDialog(
         title=ft.Text(err_title),
         modal=True,
@@ -33,7 +33,7 @@ def err_dlg(page: ft.Page, err_title: str, err_msg: str):
         ],
         actions_alignment=ft.MainAxisAlignment.END,
     )
-    
+
     dlg_open()
 
 
@@ -45,17 +45,17 @@ def confirm_dlg(page: ft.Page, title: str, msg: str, on_click):
         title (str): ダイアログのタイトルです。
         msg (str): ダイアログに表示されるメッセージです。
         on_click (function): ダイアログのボタンがクリックされたときに実行される関数です。
-    
+
     """
     def close_dlg(e):  # eは使用しないが、仮の引数が必要
         confirm_dlg.open = False
         page.update()
-    
+
     def dlg_open():
         page.dialog = confirm_dlg
         confirm_dlg.open = True
         page.update()
-    
+
     confirm_dlg = ft.AlertDialog(
         title=ft.Text(title),
         modal=True,
@@ -66,7 +66,7 @@ def confirm_dlg(page: ft.Page, title: str, msg: str, on_click):
         ],
         actions_alignment=ft.MainAxisAlignment.END,
     )
-    
+
     dlg_open()
 
 
@@ -79,20 +79,20 @@ def select_file(e: ft.FilePickerResultEvent, page: ft.Page):
     Returns:
         選択されたファイルのパスのリスト
     """
-    
+
     global file_names
     file_paths = [file.path for file in e.files]   # ファイル選択ダイアログで選択されたファイルのパスを取得
     selected_files_names = [os.path.basename(file_name) for file_name in file_paths]
     file_names = list(selected_files_names)   # 選択されたファイルの名前を取得
-    
+
      # ファイルのパスをボタンの右側に表示
     ft.Text(file_paths, width=300, style=ft.TextStyle(bgcolor="#2b2e31"))
     selected_files.value = (
         ", ".join(map(lambda f: f.name, e.files)) if e.files else "キャンセルされました!"
     )
     selected_files.update()
-    
-    
+
+
      # 翻訳処理を別のスレッドで実行
     if not file_paths == []:  # ファイルが選択された場合
         main.process_app(file_paths, file_names, page)
@@ -108,13 +108,13 @@ def select_file_from_clipboard(page: ft.Page):
     """
     global file_names
     file_paths = []
-    
+
      # クリップボードにあるmodsフォルダーのパスを取得
     mods_path = pyperclip.paste()
-    
+
      # mods_pathの両端にあるダブルクォーテーションを削除
     mods_path = mods_path.replace("\"","")
-    
+
      # modsフォルダーのパスが存在するか確認
     if os.path.exists(mods_path):
          # modsフォルダーのパスが存在する場合、その中のjarファイルをリストとして取得
@@ -127,13 +127,13 @@ def select_file_from_clipboard(page: ft.Page):
             logger.error("ERROR: %s \n 正式なファイルパスが渡されなかった可能性があります。報告いただけると助かります。", e)
             err_dlg(page, "エラー", "正式なファイルパスが渡されませんでした。")
             return
-        
+
     else:
          # modsフォルダーのパスが存在しない場合、エラーメッセージを表示して関数を終了
         err_dlg(page,"エラー", "クリップボードにファイルパスがありません。")
         return
-    
-    
+
+
     if file_paths != []:  # ファイルが選択された場合
          # それぞれのファイルを解凍→assets直下を
         main.process_app(file_paths, file_names, page)
@@ -144,15 +144,15 @@ def select_file_from_clipboard(page: ft.Page):
 
 
 def start_gui(page: ft.Page):  # この書き方はpageを引数に取ることで、pageを使ってGUIを構築することができる
-    
+
      # windowのサイズを設定
     page.window_width = 1000
     page.window_height = 700
     page.update()
-    
-    
-    
-    
+
+
+
+
      # バージョンごとのpack_formatを辞書にしておく
     version_dict = {
     "1.13 ~ 1.14.4": 4,
@@ -168,7 +168,7 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
     "1.20.3 ~ 1.20.4": 22,
     "1.20.5 ~ 1.20.6": 32
 }
-    
+
      # ドロップダウンの値が変更されたときに呼び出される関数
     def dropdown_changed(e):
          # ドロップダウンの値が変更されたときに辞書に則ってpack_formatを取得する
@@ -180,7 +180,7 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
 
 
      # AppBarを追加
-    
+
     def confirmOpenGitHub():
         """
         GitHubのリンクを開くか確認する関数
@@ -188,7 +188,7 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
         def close_dlg(e):
             dlg.open = False
             page.update()
-        
+
         def openGitHub(e):
             """
             GitHubのリンクを開く関数
@@ -208,7 +208,7 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
         page.dialog = dlg
         dlg.open = True
         page.update()
-        
+
     page.appbar = ft.AppBar(
         leading=ft.Icon(ft.icons.G_TRANSLATE),
         title=ft.Text("MC-MOD Translating tool"),
@@ -219,10 +219,10 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
             ft.IconButton(ft.icons.WEB, on_click=lambda e: confirmOpenGitHub()),
         ],
     )
-    
-    
-    
-    
+
+
+
+
      # バージョン選択のドロップダウンを追加
     dd = ft.Dropdown(
         on_change=dropdown_changed,
@@ -242,14 +242,14 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
             ft.dropdown.Option("1.20.3 ~ 1.20.4"),
             ft.dropdown.Option("1.20.5 ~ 1.20.6")
         ],
-        
+
     )
     pick_file_dialog = ft.FilePicker(on_result=lambda result: select_file(result, page))
     page.overlay.append(pick_file_dialog)
-    
+
     global selected_files
     selected_files = ft.Text()
-    
+
      # ファイルを選択するボタンと、クリップボードからファイルを選択するボタンを追加。左右に並べて表示する。
     button1 = ft.TextButton(
         text="翻訳するMODのjarファイルを選択",
@@ -270,8 +270,8 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
         visible=False,
         on_click=lambda e: select_file_from_clipboard(page)
     )
-    
-    
+
+
     page.add(
         ft.Row(
             alignment=ft.MainAxisAlignment.CENTER,
@@ -281,7 +281,7 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
         )
     )
     page.add(ft.Divider())  # 水平分割線を追加
-    
+
     page.add(ft.Row(
         alignment=ft.MainAxisAlignment.CENTER,
         controls=[button1, button2, selected_files]))
@@ -291,19 +291,19 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
 def make_progress_bar(page: ft.Page, lang_file_path):
     """
     翻訳ファイル名とプログレスバーを表示する関数
-    
+
     Args: page (ft.Page): ページオブジェクト
             file_path (str): 翻訳するファイルのパス
     """
 
     pb = ft.ProgressBar(width=400)
     show_info = ft.Text("翻訳中...")
-    
+
      # lang_file_pathの2つ上の階層のフォルダの名前を取得する
     file_name = os.path.basename(os.path.dirname(os.path.dirname(lang_file_path)))
 
-    
-    
+
+
     """
     page.add(
         ft.Text(f"{file_name}: ", style="headlineSmall", width=400),
@@ -319,7 +319,7 @@ def make_progress_bar(page: ft.Page, lang_file_path):
             ]
         )
     )
-    
+
     return pb, show_info
 
 
