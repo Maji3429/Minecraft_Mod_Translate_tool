@@ -117,7 +117,7 @@ def select_file_from_clipboard(page: ft.Page):
         try:
             jar_file_paths = [os.path.join(mods_path, file) for file in os.listdir(mods_path) if file.endswith(".jar")]
             file_paths = jar_file_paths  # jarファイルのパスを取得
-            file_names = list([os.path.basename(file_name) for file_name in file_paths])  # 選択されたファイルの名前を取得
+            file_names = [os.path.basename(file_name) for file_name in file_paths]  # 選択されたファイルの名前を取得
         except: 
             # エラーになることはないが、念のためエラーメッセージを表示
             err_dlg(page, "エラー", "正式なファイルパスが渡されませんでした。")
