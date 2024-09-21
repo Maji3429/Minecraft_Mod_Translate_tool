@@ -194,7 +194,6 @@ def start_gui(page: ft.Page):  # この書き方はpageを引数に取ること�
             GitHubのリンクを開く関数
             """
             webbrowser.open("https://github.com/Maji3429/new-mc-mod-translating-tool")
-            close_dlg
 
          # ダイアログを表示して、リンクを開くか確認
         dlg = ft.AlertDialog(
