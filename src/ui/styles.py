@@ -57,7 +57,7 @@ def create_app_bar(
     return ft.AppBar(
         leading=ft.Container(
             content=ft.Icon(ft.Icons.G_TRANSLATE, color=COLORS["primary"], size=30),
-            padding=ft.padding.only(left=15),
+            padding=ft.Padding.only(left=15),
         ),
         leading_width=40,
         title=ft.Text(
@@ -96,7 +96,7 @@ def create_app_bar(
                     spacing=0,
                     vertical_alignment=ft.CrossAxisAlignment.CENTER,
                 ),
-                padding=ft.padding.only(right=10),
+                padding=ft.Padding.only(right=10),
             ),
         ],
     )
@@ -155,10 +155,11 @@ def create_dropdown(
     """
     return ft.Dropdown(
         label=label,
-        options=[ft.dropdown.Option(option) for option in options],
+        options=[ft.DropdownOption(option) for option in options],
         width=width,
-        border_color=COLORS["primary"],
-        focused_border_color=COLORS["primary"],
+        border=ft.OutlineInputBorder(
+            side=ft.BorderSide(color=COLORS["primary"]),
+        ),
         label_style=ft.TextStyle(color=COLORS["text"]),
         text_style=ft.TextStyle(color=COLORS["text"]),
         on_select=on_select,

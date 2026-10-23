@@ -104,6 +104,7 @@ class MinecraftModTranslatorApp:
             files = await ft.FilePicker().pick_files(
                 allow_multiple=True,
                 initial_directory=os.path.expanduser("~\\Downloads"),
+                file_type=ft.FilePickerFileType.CUSTOM,
                 allowed_extensions=["jar"],
                 dialog_title="翻訳するMODのjarファイルを選択(複数選択可)",
             )
@@ -175,7 +176,7 @@ class MinecraftModTranslatorApp:
         # Add main content to page
         page.add(
             ft.Container(
-                margin=ft.margin.only(top=20),
+                margin=ft.Margin.only(top=20),
                 content=styles.create_card(main_content),
             )
         )
@@ -328,7 +329,7 @@ class MinecraftModTranslatorApp:
             ),
             actions=[
                 ft.TextButton("キャンセル", on_click=cancel),
-                ft.ElevatedButton("新規作成", on_click=recreate),
+                ft.Button("新規作成", on_click=recreate),
             ],
             actions_alignment=ft.MainAxisAlignment.END,
             modal=True,

@@ -45,8 +45,8 @@ def main():
             # the logger call above already recorded what went wrong
             sys.exit(1)
 
-        ft.app(
-            target=start_app,
+        ft.run(
+            main=start_app,
             view=AppView.FLET_APP,
             assets_dir=resources_dir,
         )

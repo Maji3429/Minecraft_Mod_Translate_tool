@@ -81,10 +81,10 @@ def create_ollama_status_indicator() -> tuple[ft.Container, ft.Container, ft.Tex
             spacing=6,
             vertical_alignment=ft.CrossAxisAlignment.CENTER,
         ),
-        padding=ft.padding.symmetric(horizontal=10, vertical=4),
+        padding=ft.Padding.symmetric(horizontal=10, vertical=4),
         border_radius=6,
         bgcolor=ft.Colors.with_opacity(0.08, ft.Colors.WHITE),
-        margin=ft.margin.only(right=4),
+        margin=ft.Margin.only(right=4),
         tooltip=config.OLLAMA_BASE_URL,
     )
     return container, dot, status_text
@@ -777,7 +777,7 @@ def show_ollama_settings_dialog(page: ft.Page, on_save: Callable) -> None:
         content=content,
         actions=[
             ft.TextButton("キャンセル", on_click=close_dialog),
-            ft.ElevatedButton("保存", on_click=save_settings),
+            ft.Button("保存", on_click=save_settings),
         ],
         actions_alignment=ft.MainAxisAlignment.END,
         modal=True,
@@ -824,7 +824,7 @@ def show_ollama_not_found_dialog(page: ft.Page) -> None:
         content=content,
         actions=[
             ft.TextButton("OK", on_click=close_dialog),
-            ft.ElevatedButton(
+            ft.Button(
                 "ollama.com を開く",
                 on_click=open_ollama_site,
                 icon=ft.Icons.OPEN_IN_BROWSER,
@@ -884,7 +884,7 @@ def show_model_not_found_dialog(page: ft.Page, model_name: str) -> None:
         content=content,
         actions=[
             ft.TextButton("OK", on_click=close_dialog),
-            ft.ElevatedButton(
+            ft.Button(
                 "コマンドをコピー",
                 on_click=copy_command,
                 icon=ft.Icons.COPY,
