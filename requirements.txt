@@ -15,7 +15,7 @@ markdown-it-py==4.2.0
 mdurl==0.1.2
 msgpack==1.2.3
 oauthlib==4.0.0
-openai==3.31.0
+openai==3.37.0
 plyer==2.1.0
 pydantic==2.14.1
 pydantic-core==2.50.1
