@@ -17,7 +17,7 @@ msgpack==1.2.4
 oauthlib==4.0.1
 openai==3.46.0
 plyer==2.1.0
-pydantic==2.14.1
+pydantic==2.14.3
 pydantic-core==2.50.1
 pygments==2.21.0
 pyperclip==1.11.0
